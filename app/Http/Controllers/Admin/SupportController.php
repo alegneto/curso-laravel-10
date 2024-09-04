@@ -9,7 +9,6 @@ use App\Http\Requests\StoreUpdateSupport;
 use App\Models\Support;
 use App\Services\SupportService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 
 class SupportController extends Controller
 {
@@ -19,11 +18,15 @@ class SupportController extends Controller
 
     public function index(Request $request)
     {
-        $supports = Arr::map($this->service->getAll(), function (array $value, string $key) {
-            return (object) $value;
-        });
+        $supports = $this->service->paginate(
+            page: $request->get('page', 1),
+            totalPerPage: $request->get('per_page', 15),
+            filter: $request->filter
+        );
 
-        return view('admin/supports/index', compact('supports'));
+        $filters = ['filter' => $request->get('filter', '')];
+
+        return view('admin/supports/index', compact('supports', 'filters'));
     }
 
     public function show(string|int $id)
