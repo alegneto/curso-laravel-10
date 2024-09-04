@@ -10,7 +10,6 @@ use App\Models\Support;
 use App\Services\SupportService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Fluent;
 
 class SupportController extends Controller
 {
