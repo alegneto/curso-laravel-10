@@ -50,7 +50,9 @@ class SupportController extends Controller
             CreateSupportDTO::makeFromRequest($request)
         );
 
-        return redirect()->route('supports.index');
+        return redirect()
+                ->route('supports.index')
+                ->with('message', 'Cadastrado com sucesso!');
     }
 
     public function edit(string|int $id)
@@ -73,7 +75,9 @@ class SupportController extends Controller
             return back();
         }
 
-        return redirect()->route('supports.index');
+        return redirect()
+                ->route('supports.index')
+                ->with('message', 'Atualizado com sucesso!');
     }
 
     public function destroy(string|int $id)
